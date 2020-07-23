@@ -23,15 +23,6 @@ namespace ResponseCache
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-
-            var cacheSettings = (CacheSettings)context.HttpContext.RequestServices.GetService(typeof(CacheSettings));
-
-            if (!cacheSettings.Enabled)
-            {
-                await next();
-                return;
-            }
-
             var cacheService = (ICacheService)context.HttpContext.RequestServices.GetService(typeof(ICacheService));
             var key = GenerateUniqueKey(context.HttpContext.Request);
             var cachedResponse = await cacheService.GetCachedResponse(key);
@@ -57,7 +48,7 @@ namespace ResponseCache
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.Append($"{request.Path}");
-            request.Query.OrderBy(x => x.Key).ToList().ForEach(q => stringBuilder.Append($"~{q.Key}-{q.Value}"));
+            request.Query.OrderBy(x => x.Key).ToList().ForEach(q => stringBuilder.Append($"|{q.Key}-{q.Value}"));
             return stringBuilder.ToString();
         }
     }

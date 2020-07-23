@@ -1,13 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Betim Shala</Authors>
+    <PackageProjectUrl>https://github.com/BetimShala/ResponseCache</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BetimShala/ResponseCache</RepositoryUrl>
+    <PackageIcon>icon_blazing_speed_blue.jpg</PackageIcon>
+    <PackageIconUrl />
+    <PackageTags>.NetCore, Cache, Distributed Cache, Response Caching, Redis, NCache</PackageTags>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Downloads\icon_blazing_speed_blue.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
