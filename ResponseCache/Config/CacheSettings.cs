@@ -6,7 +6,6 @@ namespace ResponseCache.Config
 {
     public class CacheSettings
     {
-        public bool Enabled { get; set; }
         public string ConnectionString { get; set; }
     }
 }
