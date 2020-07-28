@@ -34,10 +34,6 @@ namespace ResponseCache
                 return;
             }                
 
-            context.HttpContext.Response.ContentType = "application/json";
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
-            await context.HttpContext.Response.WriteAsync(cachedResponse);
-
             var executedContext = await next();
             if (executedContext.Result is OkObjectResult result)
             {
