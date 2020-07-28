@@ -26,8 +26,13 @@ namespace ResponseCache
             var key = BuildKey(context.HttpContext.Request);
             var cachedResponse = await cacheService.GetCachedResponse(key);
 
-            if (string.IsNullOrEmpty(cachedResponse))
+            if (!string.IsNullOrEmpty(cachedResponse))
+            {
+                context.HttpContext.Response.ContentType = "application/json";
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
+                await context.HttpContext.Response.WriteAsync(cachedResponse);
                 return;
+            }                
 
             context.HttpContext.Response.ContentType = "application/json";
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
