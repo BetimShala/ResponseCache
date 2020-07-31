@@ -1,5 +1,5 @@
 # ResponseCache
-<img src="https://api.nuget.org/v3-flatcontainer/responsecache/1.0.5/icon" width="100" height="100" alt="ResponseCache">
+<img src="https://api.nuget.org/v3-flatcontainer/responsecache/1.0.4/icon" width="100" height="100" alt="ResponseCache">
 
 [![NuGet](https://img.shields.io/badge/nuget-v1.0.5-blue)](https://www.nuget.org/packages/ResponseCache/)
 
@@ -13,33 +13,38 @@ ResponseCache is a library that is used to cache responses by simply putting **R
 Install-Package ResponseCache
 ```
 
-#### Configure appsettings.json
+#### Memory Cache configuration
+```csharp
+services.AddMemoryCache();
+services.AddInMemoryResponseCache();
+```
+
+#### Redis Cache configuration
+First we bind cache settings with configuration values from appsettings.json then we add the service
+
+```csharp
+
+var cacheSettings = new CacheSettings();
+Configuration.GetSection(nameof(CacheSettings)).Bind(cacheSettings);
+services.AddSingleton(cacheSettings);
+
+services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(cacheSettings.ConnectionString));
+services.AddDistributedRedisCache(options => options.Configuration = cacheSettings.ConnectionString);
+
+services.AddDistributedResponseCache();
+```
 Add this to appsettings.json
 ```json
   "CacheSettings": {
     "ConnectionString": "localhost:6379"
   },
 ```
-#### Startup.cs code:
-First, bind cache settings with configuration values from appsettings.json then add the service
-```csharp
-var cacheSettings = new CacheSettings(); //will be used when configuring distributed cache
-Configuration.GetSection(nameof(CacheSettings)).Bind(cacheSettings);
-services.AddSingleton(cacheSettings);
-services.AddResponseCache();
-```
-
-#### Redis Cache configuration
-```csharp
-services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(cacheSettings.ConnectionString));
-services.AddDistributedRedisCache(options => options.Configuration = cacheSettings.ConnectionString);
-```
 
 ### Usage
 ``` [ResponseCache(TTL)] ``` attribute where ``` TTL ``` is an integer representing cache living time in seconds.
 
 #### Example
-e.g. Cache list of products response for 1 minute
+e.g. Cache response list of products for 1 minute
 ```csharp
 [ApiController]
 [Route("[controller]")]
