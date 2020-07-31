@@ -24,7 +24,7 @@ namespace ResponseCache
         {
             var cacheService = (ICacheService)context.HttpContext.RequestServices.GetService(typeof(ICacheService));
             var key = BuildKey(context.HttpContext.Request);
-            var cachedResponse = await cacheService.GetCachedResponse(key);
+            var cachedResponse = await cacheService.GetCachedResponseAsync(key);
 
             if (!string.IsNullOrEmpty(cachedResponse))
             {
@@ -32,13 +32,13 @@ namespace ResponseCache
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
                 await context.HttpContext.Response.WriteAsync(cachedResponse);
                 return;
-            }                
+            }
 
             var executedContext = await next();
             if (executedContext.Result is OkObjectResult result)
             {
                 var timeToLiveSeconds = TimeSpan.FromSeconds(_timeToLive);
-                await cacheService.CacheResponse(key, result.Value, timeToLiveSeconds);
+                await cacheService.CacheResponseAsync(key, result.Value, timeToLiveSeconds);
             }
         }
 

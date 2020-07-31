@@ -5,27 +5,30 @@ using System.Threading.Tasks;
 
 namespace ResponseCache.Services
 {
-    public class CacheService : ICacheService
+    public class DistributedCacheService : ICacheService
     {
         private readonly IDistributedCache _distributedCache;
-        public CacheService(IDistributedCache distributedCache)
+        public DistributedCacheService(IDistributedCache distributedCache)
         {
             _distributedCache = distributedCache;
         }
-        public async Task CacheResponse(string key, object response, TimeSpan timeToLive)
+
+        public async Task CacheResponseAsync(string key, object response, TimeSpan timeToLive)
         {
             if (response is null)
                 return;
 
-            var serializedResponse = JsonConverter.SerializeObject(response);
-
-            await _distributedCache.SetStringAsync(key, serializedResponse, new DistributedCacheEntryOptions
+            var options = new DistributedCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = timeToLive
-            });
+            };
+
+            var serializedResponse = JsonConverter.SerializeObject(response);
+
+            await _distributedCache.SetStringAsync(key, serializedResponse, options);
         }
 
-        public async Task<string> GetCachedResponse(string key)
+        public async Task<string> GetCachedResponseAsync(string key)
         {
             var cachedResponse = await _distributedCache.GetStringAsync(key);
             return cachedResponse;

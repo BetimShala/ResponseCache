@@ -8,9 +8,14 @@ namespace ResponseCache
     /// </summary>
     public static class ServiceCollectionExtensions
     {
-        public static void AddResponseCache(this IServiceCollection services)
+        public static void AddDistributedResponseCache(this IServiceCollection services)
         {
-            services.AddSingleton<ICacheService, CacheService>();
+            services.AddSingleton<ICacheService, DistributedCacheService>();
+        }
+
+        public static void AddInMemoryResponseCache(this IServiceCollection services)
+        {
+            services.AddSingleton<ICacheService, InMemoryCacheService>();
         }
     }
 }

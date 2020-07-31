@@ -7,7 +7,7 @@ namespace ResponseCache.Services
 {
     public interface ICacheService
     {
-        Task CacheResponse(string key, object response, TimeSpan timeToLive);
-        Task<string> GetCachedResponse(string key);
+        Task CacheResponseAsync(string key, object response, TimeSpan timeToLive);
+        Task<string> GetCachedResponseAsync(string key);
     }
 }
