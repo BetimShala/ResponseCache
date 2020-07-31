@@ -8,8 +8,8 @@
     <RepositoryUrl>https://github.com/BetimShala/ResponseCache</RepositoryUrl>
     <PackageIcon>icon_blazing_speed_blue.jpg</PackageIcon>
     <PackageIconUrl />
-    <PackageTags>.NetCore, Cache, DistributedCache, ResponseCaching, Redis, NCache</PackageTags>
-    <Version>1.0.4</Version>
+    <PackageTags>.NetCore, Cache, DistributedCache, ResponseCaching, MemoryCache, Redis</PackageTags>
+    <Version>1.0.5</Version>
   </PropertyGroup>
 
   <ItemGroup>

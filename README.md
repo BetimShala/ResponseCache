@@ -1,7 +1,7 @@
 # ResponseCache
-<img src="https://api.nuget.org/v3-flatcontainer/responsecache/1.0.4/icon" width="100" height="100" alt="ResponseCache">
+<img src="https://api.nuget.org/v3-flatcontainer/responsecache/1.0.5/icon" width="100" height="100" alt="ResponseCache">
 
-[![NuGet](https://img.shields.io/badge/nuget-v1.0.4-blue)](https://www.nuget.org/packages/ResponseCache/)
+[![NuGet](https://img.shields.io/badge/nuget-v1.0.5-blue)](https://www.nuget.org/packages/ResponseCache/)
 
 ### What is ResponseCache?
 ResponseCache is a library that is used to cache responses by simply putting **ResponseCache** attribute to the endpoint you want to cache.
