@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/badge/nuget-v1.0.5-blue)](https://www.nuget.org/packages/ResponseCache/)
 
 ### What is ResponseCache?
-ResponseCache is a library that is used to cache responses by simply putting **ResponseCache** attribute to the endpoint you want to cache.
+ResponseCache is a library that is used to cache API responses by simply putting **ResponseCache** attribute to the endpoint you want to cache.
 
 ### Setup
 
